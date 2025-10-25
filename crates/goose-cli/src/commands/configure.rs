@@ -1245,7 +1245,6 @@ pub async fn configure_settings_dialog() -> Result<(), Box<dyn Error>> {
 pub fn configure_goose_mode_dialog() -> Result<(), Box<dyn Error>> {
     let config = Config::global();
 
-    // Check if GOOSE_MODE is set as an environment variable
     if std::env::var("GOOSE_MODE").is_ok() {
         let _ = cliclack::log::info("Notice: GOOSE_MODE environment variable is set and will override the configuration here.");
     }
@@ -1327,7 +1326,7 @@ pub fn configure_goose_router_strategy_dialog() -> Result<(), Box<dyn Error>> {
 
 pub fn configure_tool_output_dialog() -> Result<(), Box<dyn Error>> {
     let config = Config::global();
-    // Check if GOOSE_CLI_MIN_PRIORITY is set as an environment variable
+
     if std::env::var("GOOSE_CLI_MIN_PRIORITY").is_ok() {
         let _ = cliclack::log::info("Notice: GOOSE_CLI_MIN_PRIORITY environment variable is set and will override the configuration here.");
     }
@@ -1360,8 +1359,7 @@ pub fn configure_keyring_dialog() -> Result<(), Box<dyn Error>> {
     let config = Config::global();
 
     // Check current setting
-    let currently_disabled = std::env::var("GOOSE_DISABLE_KEYRING").is_ok()
-        || config.get_param::<String>("GOOSE_DISABLE_KEYRING").is_ok();
+    let currently_disabled = config.get_param::<String>("GOOSE_DISABLE_KEYRING").is_ok();
 
     let current_status = if currently_disabled {
         "Disabled (using file-based storage)"
@@ -1629,7 +1627,6 @@ fn configure_recipe_dialog() -> Result<(), Box<dyn Error>> {
 fn configure_scheduler_dialog() -> Result<(), Box<dyn Error>> {
     let config = Config::global();
 
-    // Check if GOOSE_SCHEDULER_TYPE is set as an environment variable
     if std::env::var("GOOSE_SCHEDULER_TYPE").is_ok() {
         let _ = cliclack::log::info("Notice: GOOSE_SCHEDULER_TYPE environment variable is set and will override the configuration here.");
     }
